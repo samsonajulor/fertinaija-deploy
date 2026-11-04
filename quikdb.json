@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "runtime": "nodejs",
+  "runtimeVersion": "22",
+  "framework": "express",
+  "installCommand": "",
+  "buildCommand": "",
+  "startCommand": "npm start",
+  "port": 3000,
+  "healthCheck": "/healthz"
+}

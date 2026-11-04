@@ -22,6 +22,7 @@ Mobile-first independent fertility-opportunity information and visit coordinatio
 | `public/index.html` | Public mobile-first product experience. |
 | `public/app.js` | Guided assistant, state check, analytics and support handoff. |
 | `public/styles.css` | Responsive visual system. |
+| `quikdb.json` | Versioned QuikDB production runtime and health-check settings. |
 | `test/server.test.js` | Health, boundary-copy and security-header tests. |
 
 ## Recent Changes
