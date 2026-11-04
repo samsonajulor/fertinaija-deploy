@@ -140,6 +140,20 @@ test('server applies baseline browser security headers', async () => {
   });
 });
 
+test('mutable web assets revalidate so mobile browsers do not retain an old release', async () => {
+  await withServer(async baseUrl => {
+    const [home, script, stylesheet] = await Promise.all([
+      fetch(baseUrl),
+      fetch(`${baseUrl}/app.js?v=current`),
+      fetch(`${baseUrl}/styles.css?v=current`)
+    ]);
+    assert.equal(home.headers.get('cache-control'), 'no-cache');
+    assert.equal(script.headers.get('cache-control'), 'no-cache');
+    assert.equal(stylesheet.headers.get('cache-control'), 'no-cache');
+    assert.match(await home.text(), /app\.js\?v=20261104-2/);
+  });
+});
+
 test('unknown paths return a 404', async () => {
   await withServer(async baseUrl => {
     const response = await fetch(`${baseUrl}/missing-page`);

@@ -31,7 +31,7 @@ Mobile-first independent fertility-opportunity information and visit coordinatio
 
 | Date | Change | Branch/PR |
 |------|--------|-----------|
-| 2026-11-04 | Removed the shared QuikDB HubSpot widget, routed expert actions to `t.me/fertinaija`, replaced the search toolbar with full-list location buttons, corrected option-card overlap, added privacy/terms plus consent controls, and switched external actions to reliable same-tab mobile navigation. | `codex/fertinaija-directory-rewards` |
+| 2026-11-04 | Removed the shared QuikDB HubSpot widget, routed expert actions to `t.me/fertinaija`, replaced the search toolbar with full-list location buttons, corrected option-card overlap, added privacy/terms plus consent controls, switched external actions to reliable same-tab mobile navigation, and added release-safe asset revalidation. | `codex/fertinaija-directory-rewards` |
 | 2026-11-04 | Expanded the single-clinic page into a multi-state public directory, connected state selection to listing filters, added published reward evidence and made opportunity-expert conversation the main action. | `codex/fertinaija-directory-rewards` |
 | 2026-11-04 | Deployed the validated application to QuikDB production at `https://fertinaija.quikdb.net`; enabled auto-deploy from the deployment mirror's `main` branch. | `main` / deployment `deploy-ed2ce8ca-c8c7-4138-af67-22e893819889` |
 | 2026-11-04 | Corrected guide routing for location and map actions; aligned privacy-request wording with the configured support channel. | `codex/fertinaija-launch` |

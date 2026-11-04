@@ -65,9 +65,10 @@ function createServer() {
 
       const extension = path.extname(filePath).toLowerCase();
       const immutable = /\.[a-f0-9]{8,}\./.test(path.basename(filePath));
+      const mutableWebAsset = ['.html', '.css', '.js'].includes(extension);
       response.writeHead(200, {
         'Content-Type': contentTypes[extension] || 'application/octet-stream',
-        'Cache-Control': extension === '.html' ? 'no-cache' : immutable ? 'public, max-age=31536000, immutable' : 'public, max-age=3600'
+        'Cache-Control': mutableWebAsset ? 'no-cache' : immutable ? 'public, max-age=31536000, immutable' : 'public, max-age=3600'
       });
 
       if (request.method === 'HEAD') {
