@@ -29,13 +29,23 @@ Mobile-first independent fertility-opportunity information and visit coordinatio
 
 | Date | Change | Branch/PR |
 |------|--------|-----------|
+| 2026-11-04 | Deployed the validated application to QuikDB production at `https://fertinaija.quikdb.net`; enabled auto-deploy from the deployment mirror's `main` branch. | `main` / deployment `deploy-ed2ce8ca-c8c7-4138-af67-22e893819889` |
 | 2026-11-04 | Corrected guide routing for location and map actions; aligned privacy-request wording with the configured support channel. | `codex/fertinaija-launch` |
 | 2026-11-04 | Initial production implementation. | `codex/fertinaija-launch` |
+
+## Production
+
+- Public URL: `https://fertinaija.quikdb.net`
+- Health check: `https://fertinaija.quikdb.net/healthz`
+- QuikDB deployment: `deploy-ed2ce8ca-c8c7-4138-af67-22e893819889`
+- Deployed application commit: `964d0a238a69ab3ce79e94220caa03117738d82c`
+- Canonical engineering repository: `https://github.com/quikdb/fertinaija` (private)
+- Deployment-only mirror: `https://github.com/samsonajulor/fertinaija-deploy` (public; contains no credentials)
 
 ## Known Issues
 
 - No dedicated FertiNaija WhatsApp Business number is currently configured.
-- Live support depends on a site-specific chatflow being active for the production hostname.
+- The automated in-page guide is live. Human live-chat handoff still depends on a site-specific chatflow being active for the production hostname.
 - The brand has not completed formal trademark clearance.
 
 ## Environment Variables
