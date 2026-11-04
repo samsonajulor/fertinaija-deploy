@@ -31,5 +31,10 @@ The intended QuikDB deployment is `https://fertinaija.quikdb.net` with:
 
 FertiNaija is not a clinic or medical provider. Public facility listings do not imply affiliation.
 The application does not transmit user information to listed facilities.
-Location filtering uses a state selected by the user and never automatically recommends one clinic.
+The full selected directory appears by default. Location buttons and any state selected in the
+browser-local guide narrow the visible listings without requesting precise location.
 Compensation and reimbursement are programme-specific and are never guaranteed by FertiNaija.
+The browser-local guide remains on the site, while opportunity-expert handoffs open
+`https://t.me/fertinaija`. The shared QuikDB HubSpot support widget is intentionally not loaded.
+The footer links to the privacy policy, terms and privacy-choice controls. One necessary consent
+cookie is used; the directory location is stored only when the visitor allows preferences.

@@ -142,13 +142,9 @@
       <section class="section location-section" id="locations">
         <div class="section-heading">
           <div><span class="kicker">Public fertility-clinic directory</span><h2>Find options based on your location.</h2></div>
-          <p>Select your Nigerian state or search by clinic and city. We do not default you to Havilland—or to any other clinic. Listings are public information, not endorsements.</p>
+          <p>Browse the full selected directory, or narrow it using the listed locations below. A state chosen in the private guide is applied here automatically. We do not default you to Havilland—or to any other clinic.</p>
         </div>
-        <div class="directory-toolbar" aria-label="Filter fertility clinics">
-          <label><span>State</span><select id="clinicState"><option value="">All listed states</option></select></label>
-          <label><span>Search</span><input id="clinicSearch" type="search" placeholder="Clinic, city or service" autocomplete="off" /></label>
-          <button type="button" id="clearClinicFilters">Clear filters</button>
-        </div>
+        <div class="location-filters" id="clinicStateFilters" aria-label="Filter clinics by location"></div>
         <div class="directory-summary" id="clinicResultSummary" aria-live="polite"></div>
         <div class="clinic-grid" id="clinicDirectory"></div>
         <div class="directory-empty" id="clinicEmpty" hidden>
@@ -183,7 +179,7 @@
           <details><summary>Is the opportunity expert a doctor?<span>+</span></summary><p>Not necessarily. “Opportunity expert” means an independent FertiNaija coordinator who can help you compare public information and prepare questions. It does not mean a doctor, lawyer or financial adviser.</p></details>
           <details><summary>Does donation mean I will not be rewarded?<span>+</span></summary><p>No. Some private programmes publish compensation or reimbursement for eligible participants. The amount, reason, timing and availability vary. FertiNaija helps you identify the questions to ask but cannot guarantee selection or payment.</p></details>
           <details><summary>Why does the directory show several clinics?<span>+</span></summary><p>FertiNaija does not automatically send you to one clinic. Choose your state to see public listings nearby, verify each programme directly and talk to an opportunity expert if you want help comparing the published information.</p></details>
-          <details><summary>Who can see my support conversation?<span>+</span></summary><p>The automated guide and authorised FertiNaija coordinators may access the conversation to provide support and maintain an audit trail. Do not send medical records, NIN or financial credentials.</p></details>
+          <details><summary>Who can see what I send on Telegram?<span>+</span></summary><p>The website guide stays in your browser and does not send your selections anywhere. If you continue to Telegram, the messages you send there may be seen by FertiNaija coordinators and are also subject to Telegram's privacy practices. Do not send medical records, NIN or financial credentials.</p></details>
         </div>
       </section>
 
@@ -199,7 +195,7 @@
     <footer>
       <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Ferti<span>Naija</span></span></a>
       <p>Independent fertility-opportunity information and coordination for Nigerians.</p>
-      <div><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="#faq">FAQs</a></div>
+      <div><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><button class="footer-link" type="button" data-open-privacy-choices>Your privacy choices</button><a href="#faq">FAQs</a></div>
       <small>© 2026 FertiNaija. Hosted on QuikDB. Not a clinic or medical provider.</small>
     </footer>
 
@@ -211,7 +207,7 @@
       <div class="guide-backdrop" data-close-guide></div>
       <section class="guide-panel" role="dialog" aria-modal="true" aria-labelledby="guide-title">
         <header>
-          <div class="guide-identity"><span>F</span><div><h2 id="guide-title">FertiNaija Opportunity Guide</h2><p><i></i> Automated guide · Expert handoff available</p></div></div>
+          <div class="guide-identity"><span>F</span><div><h2 id="guide-title">FertiNaija Opportunity Guide</h2><p><i></i> Automated guide · Telegram expert handoff</p></div></div>
           <button type="button" data-close-guide aria-label="Close guide">×</button>
         </header>
         <div class="guide-privacy"><span>⌁</span> Do not send medical records, NIN, passwords or payment details.</div>
@@ -219,15 +215,26 @@
         <div class="guide-composer" id="guideComposer"></div>
         <footer>
           <button type="button" class="human-handoff" data-open-support>Continue with an opportunity expert</button>
-          <p>Conversations may be reviewed by authorised coordinators for support and auditing.</p>
+          <p>Telegram opens separately. Nothing from this guide is sent automatically.</p>
         </footer>
       </section>
     </div>
 
     <div class="toast" role="status" aria-live="polite"></div>
 
+    <aside class="privacy-banner" id="privacyBanner" aria-labelledby="privacy-title" hidden>
+      <div>
+        <strong id="privacy-title">Your privacy choices</strong>
+        <p>We use one necessary cookie to remember your choice. If you allow preferences, this browser can also remember your selected directory location. We do not use advertising cookies or sell or share personal information for targeted advertising.</p>
+        <a href="/privacy.html">Read the privacy and cookie policy</a>
+      </div>
+      <div class="privacy-actions">
+        <button type="button" class="button button-ghost dark" data-privacy-choice="essential">Necessary only</button>
+        <button type="button" class="button button-primary" data-privacy-choice="preferences">Allow preferences</button>
+      </div>
+    </aside>
+
     <script src="/clinics.js" defer></script>
     <script src="/app.js" defer></script>
-    <script type="text/javascript" id="hs-script-loader" async defer src="https://js-eu1.hs-scripts.com/149469290.js"></script>
   </body>
 </html>

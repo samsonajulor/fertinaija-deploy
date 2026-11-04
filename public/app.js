@@ -7,6 +7,9 @@ const states = [
 ];
 
 const clinics = Array.isArray(window.FERTINAIJA_CLINICS) ? window.FERTINAIJA_CLINICS : [];
+const expertChannelUrl = 'https://t.me/fertinaija';
+const privacyCookieName = 'fertinaija_privacy_choice';
+const directoryPreferenceKey = 'fertinaija_directory_state';
 
 const topicMessages = {
   surrogacy: 'Some private surrogacy arrangements may include agreed expenses, support or compensation for the significant time and pregnancy commitment involved. Terms vary, and you should receive independent medical and legal advice before agreeing to anything.',
@@ -23,19 +26,73 @@ const menuButton = document.querySelector('.menu-button');
 const nav = document.querySelector('nav');
 const toast = document.querySelector('.toast');
 const clinicDirectory = document.getElementById('clinicDirectory');
-const clinicStateSelect = document.getElementById('clinicState');
-const clinicSearchInput = document.getElementById('clinicSearch');
+const clinicStateFilters = document.getElementById('clinicStateFilters');
 const clinicResultSummary = document.getElementById('clinicResultSummary');
 const clinicEmpty = document.getElementById('clinicEmpty');
-const clearClinicFilters = document.getElementById('clearClinicFilters');
+const privacyBanner = document.getElementById('privacyBanner');
 let currentTopic = null;
 let selectedState = null;
 let selectedClinic = null;
 let lastFocused = null;
+let activeDirectoryState = '';
+
+function getCookie(name) {
+  const prefix = `${encodeURIComponent(name)}=`;
+  const match = document.cookie.split('; ').find(item => item.startsWith(prefix));
+  return match ? decodeURIComponent(match.slice(prefix.length)) : '';
+}
+
+function getPrivacyChoice() {
+  return getCookie(privacyCookieName);
+}
+
+function readSavedDirectoryState() {
+  if (getPrivacyChoice() !== 'preferences') return '';
+  try {
+    const state = window.localStorage.getItem(directoryPreferenceKey) || '';
+    return clinics.some(clinic => clinic.state === state) ? state : '';
+  } catch {
+    return '';
+  }
+}
+
+function saveDirectoryState() {
+  if (getPrivacyChoice() !== 'preferences') return;
+  try {
+    if (activeDirectoryState) window.localStorage.setItem(directoryPreferenceKey, activeDirectoryState);
+    else window.localStorage.removeItem(directoryPreferenceKey);
+  } catch {
+    // The directory still works when browser storage is unavailable.
+  }
+}
+
+function setPrivacyChoice(choice) {
+  const safeChoice = choice === 'preferences' ? 'preferences' : 'essential';
+  document.cookie = `${encodeURIComponent(privacyCookieName)}=${encodeURIComponent(safeChoice)}; Max-Age=31536000; Path=/; SameSite=Lax; Secure`;
+  if (safeChoice === 'preferences') {
+    saveDirectoryState();
+  } else {
+    try { window.localStorage.removeItem(directoryPreferenceKey); } catch {}
+  }
+  privacyBanner.hidden = true;
+  track('pe_fertinaija_privacy_choice', { choice: safeChoice });
+}
+
+function showPrivacyChoices() {
+  privacyBanner.hidden = false;
+  privacyBanner.querySelector('[data-privacy-choice="essential"]').focus();
+}
+
+function initializePrivacyChoices() {
+  if (!getPrivacyChoice() && navigator.globalPrivacyControl === true) {
+    setPrivacyChoice('essential');
+    return;
+  }
+  privacyBanner.hidden = Boolean(getPrivacyChoice());
+}
 
 function track(name, properties = {}) {
-  window._hsq = window._hsq || [];
-  window._hsq.push(['trackCustomBehavioralEvent', { name, properties }]);
+  window.dispatchEvent(new CustomEvent('fertinaija:interaction', { detail: { name, properties } }));
 }
 
 function showToast(text) {
@@ -138,34 +195,46 @@ function createClinicCard(clinic) {
 }
 
 function getFilteredClinics() {
-  const state = clinicStateSelect.value;
-  const query = clinicSearchInput.value.trim().toLowerCase();
-  return clinics.filter(clinic => {
-    const matchesState = !state || clinic.state === state;
-    const searchable = `${clinic.name} ${clinic.state} ${clinic.city} ${clinic.address} ${clinic.services}`.toLowerCase();
-    return matchesState && (!query || searchable.includes(query));
+  return clinics.filter(clinic => !activeDirectoryState || clinic.state === activeDirectoryState);
+}
+
+function updateLocationFilterState() {
+  clinicStateFilters.querySelectorAll('[data-directory-state]').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.directoryState === activeDirectoryState));
+  });
+}
+
+function renderLocationFilters() {
+  const listedStates = [...new Set(clinics.map(clinic => clinic.state))].sort((a, b) => a.localeCompare(b));
+  clinicStateFilters.innerHTML = '';
+  [{ label: 'All locations', state: '' }, ...listedStates.map(state => ({ label: state, state }))].forEach(item => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'location-filter';
+    button.textContent = item.label;
+    button.dataset.directoryState = item.state;
+    button.setAttribute('aria-pressed', String(item.state === activeDirectoryState));
+    clinicStateFilters.appendChild(button);
   });
 }
 
 function renderClinicDirectory() {
   const matches = getFilteredClinics();
-  const state = clinicStateSelect.value;
-  const query = clinicSearchInput.value.trim();
   clinicDirectory.innerHTML = '';
   matches.forEach(clinic => clinicDirectory.appendChild(createClinicCard(clinic)));
   clinicEmpty.hidden = matches.length > 0;
   clinicDirectory.hidden = matches.length === 0;
 
-  const scope = state ? ` in ${state}` : ' across the selected public directory';
-  const searchDetail = query ? ` matching “${query}”` : '';
-  clinicResultSummary.textContent = `${matches.length} clinic listing${matches.length === 1 ? '' : 's'}${scope}${searchDetail}.`;
-  track('pe_fertinaija_directory_filter', { state: state || 'all', query: query || 'none', results: String(matches.length) });
+  const scope = activeDirectoryState ? ` in ${activeDirectoryState}` : ' across all listed locations';
+  clinicResultSummary.textContent = `${matches.length} clinic listing${matches.length === 1 ? '' : 's'}${scope}.`;
+  updateLocationFilterState();
+  track('pe_fertinaija_directory_filter', { state: activeDirectoryState || 'all', results: String(matches.length) });
   return matches.length;
 }
 
 function showClinicsForState(state, scroll = true) {
-  clinicStateSelect.value = state;
-  clinicSearchInput.value = '';
+  activeDirectoryState = state;
+  saveDirectoryState();
   const count = renderClinicDirectory();
   if (scroll) document.getElementById('locations').scrollIntoView({ behavior: 'smooth', block: 'start' });
   return count;
@@ -290,15 +359,6 @@ function closeGuide() {
 
 function openSupport(clinicName = null) {
   selectedClinic = clinicName;
-  const context = [
-    currentTopic ? `Interest: ${currentTopic}` : null,
-    selectedState ? `Current state: ${selectedState}` : null,
-    selectedClinic ? `Clinic being reviewed: ${selectedClinic}` : null,
-    currentTopic === 'arrived' ? 'Status: I have arrived at a facility' : null
-  ].filter(Boolean).join('\n');
-
-  if (context && navigator.clipboard) navigator.clipboard.writeText(context).catch(() => {});
-
   closeGuide();
   track('pe_fertinaija_expert_handoff', {
     topic: currentTopic || 'general',
@@ -306,37 +366,33 @@ function openSupport(clinicName = null) {
     clinic: selectedClinic || 'not_selected'
   });
 
-  if (window.HubSpotConversations?.widget) {
-    window.HubSpotConversations.widget.open();
-    showToast(context ? 'Your context was copied. Paste it into the expert chat.' : 'Expert chat opened.');
-    return;
-  }
-
-  showToast('The expert chat is still loading. Please try again shortly.');
-  window.setTimeout(() => {
-    if (window.HubSpotConversations?.widget) window.HubSpotConversations.widget.open();
-  }, 1800);
+  const expertWindow = window.open(expertChannelUrl, '_blank', 'noopener,noreferrer');
+  showToast(expertWindow ? 'Opening the FertiNaija Telegram channel.' : 'Allow pop-ups to open the FertiNaija Telegram channel.');
 }
 
-clinicStateSelect.innerHTML += states.map(state => `<option value="${state}">${state}</option>`).join('');
-clinicStateSelect.addEventListener('change', renderClinicDirectory);
-clinicSearchInput.addEventListener('input', renderClinicDirectory);
-clearClinicFilters.addEventListener('click', () => {
-  clinicStateSelect.value = '';
-  clinicSearchInput.value = '';
+clinicStateFilters.addEventListener('click', event => {
+  const button = event.target.closest('[data-directory-state]');
+  if (!button) return;
+  activeDirectoryState = button.dataset.directoryState;
+  saveDirectoryState();
   renderClinicDirectory();
 });
 clinicDirectory.addEventListener('click', event => {
   const button = event.target.closest('[data-clinic-expert]');
   if (button) openSupport(button.dataset.clinicExpert);
 });
+activeDirectoryState = readSavedDirectoryState();
+renderLocationFilters();
 renderClinicDirectory();
+initializePrivacyChoices();
 
 document.querySelectorAll('[data-open-guide]').forEach(button => button.addEventListener('click', () => openGuide()));
 document.querySelectorAll('[data-topic]').forEach(button => button.addEventListener('click', () => openGuide(button.dataset.topic)));
 document.querySelectorAll('[data-arrived]').forEach(button => button.addEventListener('click', () => openGuide('arrived')));
 document.querySelectorAll('[data-close-guide]').forEach(button => button.addEventListener('click', closeGuide));
 document.querySelectorAll('[data-open-support]').forEach(button => button.addEventListener('click', () => openSupport()));
+document.querySelectorAll('[data-open-privacy-choices]').forEach(button => button.addEventListener('click', showPrivacyChoices));
+document.querySelectorAll('[data-privacy-choice]').forEach(button => button.addEventListener('click', () => setPrivacyChoice(button.dataset.privacyChoice)));
 
 menuButton.addEventListener('click', () => {
   const open = nav.classList.toggle('open');
@@ -350,6 +406,3 @@ nav.querySelectorAll('a, button').forEach(item => item.addEventListener('click',
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape' && guideShell.classList.contains('open')) closeGuide();
 });
-
-window.hsConversationsOnReady = window.hsConversationsOnReady || [];
-window.hsConversationsOnReady.push(() => track('pe_fertinaija_expert_chat_ready'));
