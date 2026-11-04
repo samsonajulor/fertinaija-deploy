@@ -41,7 +41,8 @@ test('expert handoff opens the FertiNaija Telegram channel without QuikDB chat c
     const body = await response.text();
     assert.equal(response.status, 200);
     assert.match(body, /https:\/\/t\.me\/fertinaija/);
-    assert.match(body, /window\.open\(expertChannelUrl/);
+    assert.match(body, /window\.location\.assign\(expertChannelUrl\)/);
+    assert.doesNotMatch(body, /window\.open\(/);
     assert.doesNotMatch(body, /HubSpotConversations|hsConversationsOnReady/);
   });
 });

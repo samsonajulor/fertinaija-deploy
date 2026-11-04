@@ -128,8 +128,6 @@ function createLink(label, href, className = '') {
   const link = document.createElement('a');
   link.textContent = label;
   link.href = href;
-  link.target = '_blank';
-  link.rel = 'noopener noreferrer';
   if (className) link.className = className;
   return link;
 }
@@ -366,8 +364,7 @@ function openSupport(clinicName = null) {
     clinic: selectedClinic || 'not_selected'
   });
 
-  const expertWindow = window.open(expertChannelUrl, '_blank', 'noopener,noreferrer');
-  showToast(expertWindow ? 'Opening the FertiNaija Telegram channel.' : 'Allow pop-ups to open the FertiNaija Telegram channel.');
+  window.location.assign(expertChannelUrl);
 }
 
 clinicStateFilters.addEventListener('click', event => {
