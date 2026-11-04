@@ -45,7 +45,7 @@ Mobile-first independent fertility-opportunity information and visit coordinatio
 - Deployed application commit: `f1e2ea4f650437b91cc66391a68b526c4d731352`
 - Production state: `live`; two production replicas confirmed live and `/healthz` returned HTTP 200.
 - Live release checks: versioned CSS/JavaScript, full directory location controls, Telegram same-tab handoff, privacy/terms pages and consent controls all returned from production; the shared HubSpot/Nike widget and old search toolbar were absent.
-- Automated validation runs: canonical `41866747135`; deployment mirror `41866768677` (both awaiting GitHub-hosted runner assignment at deployment closeout).
+- Automated validation runs: canonical `41866747135`; deployment mirror `41866768677` (both passed).
 - Canonical engineering repository: `https://github.com/quikdb/fertinaija` (private)
 - Deployment-only mirror: `https://github.com/samsonajulor/fertinaija-deploy` (public; contains no credentials)
 
