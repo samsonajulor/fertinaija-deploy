@@ -10,7 +10,8 @@ Mobile-first independent fertility-opportunity information and visit coordinatio
 - Static educational pages for surrogacy, egg donation and sperm donation.
 - Browser-local guided assistant and Nigeria state check.
 - Support-team handoff through the approved site chat provider.
-- Factual public facility directory beginning with Havilland Fertility Clinic.
+- Location-filtered public directory covering selected fertility clinics across several Nigerian states, with a link to the broader AFRH registry.
+- Reward-aware copy that explains possible private-programme compensation or reimbursement without promising payment.
 - Arrival check-in journey for users who reach a facility independently.
 - Privacy and terms pages that preserve the non-medical, non-affiliated boundary.
 
@@ -29,6 +30,7 @@ Mobile-first independent fertility-opportunity information and visit coordinatio
 
 | Date | Change | Branch/PR |
 |------|--------|-----------|
+| 2026-11-04 | Expanded the single-clinic page into a multi-state public directory, connected state selection to listing filters, added published reward evidence and made opportunity-expert conversation the main action. | `codex/fertinaija-directory-rewards` |
 | 2026-11-04 | Deployed the validated application to QuikDB production at `https://fertinaija.quikdb.net`; enabled auto-deploy from the deployment mirror's `main` branch. | `main` / deployment `deploy-ed2ce8ca-c8c7-4138-af67-22e893819889` |
 | 2026-11-04 | Corrected guide routing for location and map actions; aligned privacy-request wording with the configured support channel. | `codex/fertinaija-launch` |
 | 2026-11-04 | Initial production implementation. | `codex/fertinaija-launch` |
@@ -47,6 +49,7 @@ Mobile-first independent fertility-opportunity information and visit coordinatio
 - No dedicated FertiNaija WhatsApp Business number is currently configured.
 - The automated in-page guide is live. Human live-chat handoff still depends on a site-specific chatflow being active for the production hostname.
 - The brand has not completed formal trademark clearance.
+- The selected directory is not exhaustive; users are linked to the broader AFRH public registry for other states and facilities.
 
 ## Environment Variables
 

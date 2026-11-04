@@ -138,6 +138,13 @@ nav a:hover { color: var(--coral-dark); }
 .compensation-note { display: flex; gap: 13px; margin-top: 20px; padding: 19px 22px; border-radius: 16px; background: #f2ebe4; }
 .compensation-note > span { display: grid; flex: 0 0 auto; place-items: center; width: 25px; height: 25px; border-radius: 50%; color: white; background: var(--plum); font-family: Georgia, serif; font-weight: 700; }
 .compensation-note p { margin: 0; color: #645963; font-size: 12px; }
+.reward-panel { display: grid; grid-template-columns: 1.05fr .95fr; gap: 42px; margin-top: 28px; padding: 42px; overflow: hidden; border: 1px solid rgba(61,36,62,.09); border-radius: 28px; background: linear-gradient(135deg, #f2ebe4 0%, #f9f4ee 58%, #dff4ed 100%); }
+.reward-panel h3 { max-width: 520px; margin: 12px 0 14px; font-family: Georgia, serif; font-size: 34px; line-height: 1.08; font-weight: 500; }
+.reward-panel p { max-width: 600px; margin: 0; color: #625762; font-size: 14px; }
+.reward-checklist { display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 25px; border-radius: 20px; background: rgba(255,255,255,.76); }
+.reward-checklist span { position: relative; padding-left: 27px; color: #514751; font-size: 13px; font-weight: 700; }
+.reward-checklist span::before { content: "✓"; position: absolute; left: 0; display: grid; place-items: center; width: 19px; height: 19px; border-radius: 50%; color: white; background: var(--mint-dark); font-size: 10px; }
+.reward-checklist a { margin-top: 7px; color: var(--coral-dark); font-size: 12px; font-weight: 800; }
 
 .journey-section { display: grid; grid-template-columns: .86fr 1.14fr; max-width: none; padding: 0; color: white; background: var(--plum-dark); }
 .journey-intro { padding: 95px max(48px, calc((100vw - var(--max)) / 2)); padding-right: 65px; background: var(--plum); }
@@ -172,6 +179,40 @@ nav a:hover { color: var(--coral-dark); }
 .clinic-details dd { margin: 0; font-weight: 750; }
 .clinic-actions { display: flex; gap: 10px; margin-top: 27px; }
 .listing-disclaimer { margin: 23px 0 0; color: #8c818a; font-size: 10px; line-height: 1.55; }
+
+.directory-toolbar { display: grid; grid-template-columns: 1fr 1.25fr auto; gap: 12px; align-items: end; padding: 19px; border: 1px solid var(--line); border-radius: 20px; background: white; box-shadow: 0 12px 38px rgba(48,27,47,.06); }
+.directory-toolbar label { display: flex; flex-direction: column; gap: 7px; }
+.directory-toolbar label > span { color: #766b75; font-size: 10px; font-weight: 850; letter-spacing: 1px; text-transform: uppercase; }
+.directory-toolbar select, .directory-toolbar input { width: 100%; height: 47px; padding: 0 14px; border: 1px solid rgba(61,36,62,.17); border-radius: 12px; color: var(--ink); background: #fffdfb; font-size: 13px; outline: none; }
+.directory-toolbar select:focus, .directory-toolbar input:focus { border-color: var(--coral-dark); box-shadow: 0 0 0 3px rgba(226,93,78,.11); }
+.directory-toolbar > button { height: 47px; padding: 0 18px; border: 1px solid rgba(61,36,62,.18); border-radius: 12px; color: var(--plum); background: #f5efe9; cursor: pointer; font-size: 12px; font-weight: 800; }
+.directory-summary { margin: 18px 3px 20px; color: #756a74; font-size: 12px; font-weight: 700; }
+.clinic-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.directory-card { display: flex; flex-direction: column; min-height: 430px; padding: 26px; border: 1px solid var(--line); border-radius: 23px; background: white; box-shadow: 0 14px 38px rgba(48,27,47,.055); }
+.directory-card.has-reward-info { border-color: rgba(26,114,94,.3); background: linear-gradient(180deg, #fafffd 0%, white 42%); }
+.directory-card-meta { display: flex; flex-wrap: wrap; gap: 7px; }
+.directory-card-meta span { padding: 6px 9px; border-radius: 999px; color: #6d606a; background: #f3ece5; font-size: 9px; font-weight: 850; letter-spacing: .45px; text-transform: uppercase; }
+.directory-card-meta span:first-child { color: var(--mint-dark); background: var(--mint); }
+.directory-card h3 { margin: 18px 0 9px; font-family: Georgia, serif; font-size: 27px; line-height: 1.12; font-weight: 500; }
+.directory-address { margin: 0; color: #665b65; font-size: 12px; }
+.directory-services { margin: 15px 0 0; color: var(--plum); font-size: 12px; font-weight: 800; }
+.directory-reward, .directory-reward-prompt { margin: 20px 0; padding: 15px; border-radius: 14px; }
+.directory-reward { color: #315e53; background: var(--mint); }
+.directory-reward strong { display: block; margin-bottom: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: .6px; }
+.directory-reward p { margin: 0 0 7px; font-size: 11px; }
+.directory-reward a { color: var(--mint-dark); font-size: 10px; font-weight: 850; }
+.directory-reward-prompt { color: #746873; background: #f7f2ec; font-size: 11px; }
+.directory-card-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: auto; }
+.directory-card-actions button, .directory-card-actions a { display: inline-flex; min-height: 38px; align-items: center; justify-content: center; padding: 0 12px; border: 1px solid rgba(61,36,62,.16); border-radius: 999px; color: var(--plum); background: transparent; cursor: pointer; font-size: 10px; font-weight: 800; text-decoration: none; }
+.directory-card-actions button { color: white; border-color: var(--coral-dark); background: var(--coral-dark); }
+.directory-card > small { display: block; margin-top: 15px; color: #938891; font-size: 8px; line-height: 1.5; }
+.directory-empty { padding: 45px 30px; border: 1px dashed rgba(61,36,62,.24); border-radius: 22px; background: #f8f2ec; text-align: center; }
+.directory-empty h3 { margin: 0 0 8px; font-family: Georgia, serif; font-size: 28px; font-weight: 500; }
+.directory-empty p { max-width: 600px; margin: 0 auto 20px; color: var(--muted); }
+.directory-empty > div { display: flex; justify-content: center; flex-wrap: wrap; gap: 9px; }
+.directory-source { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 18px; padding: 17px 20px; border-radius: 15px; color: #685d66; background: #efe7df; font-size: 11px; }
+.directory-source p { margin: 0; }
+.directory-source a { flex: 0 0 auto; color: var(--coral-dark); font-weight: 850; }
 
 .arrival-section { padding-top: 25px; }
 .arrival-card { display: flex; align-items: center; justify-content: space-between; gap: 35px; padding: 50px 55px; border-radius: 26px; background: var(--mint); }
@@ -257,11 +298,15 @@ body > footer small { grid-column: 1 / -1; padding-top: 22px; border-top: 1px so
   .option-grid { grid-template-columns: 1fr; }
   .option-card { min-height: 330px; }
   .option-icon { margin-top: 35px; }
+  .reward-panel { grid-template-columns: 1fr; }
   .journey-section { grid-template-columns: 1fr; }
   .journey-intro { padding: 75px 44px; }
   .journey-steps { max-width: none; padding: 45px 44px; }
   .clinic-card { grid-template-columns: 1fr; }
   .clinic-map { min-height: 330px; }
+  .clinic-grid { grid-template-columns: 1fr; }
+  .directory-toolbar { grid-template-columns: 1fr 1fr; }
+  .directory-toolbar > button { grid-column: 1 / -1; }
   body > footer { grid-template-columns: 1fr; }
   body > footer small { grid-column: 1; }
 }
@@ -282,12 +327,21 @@ body > footer small { grid-column: 1 / -1; padding-top: 22px; border-top: 1px so
   .section-heading h2, .journey-intro h2, .arrival-card h2 { font-size: 38px; }
   .option-card { padding: 25px; }
   .option-card button { left: 25px; }
+  .reward-panel { gap: 25px; padding: 29px 23px; }
+  .reward-panel h3 { font-size: 30px; }
+  .reward-checklist { padding: 20px; }
   .journey-intro, .journey-steps { padding: 62px 22px; }
   .journey-steps { padding-top: 35px; }
   .clinic-details { padding: 32px 24px; }
   .clinic-details h3 { font-size: 33px; }
   .clinic-details dl div { grid-template-columns: 1fr; gap: 3px; }
   .clinic-actions { align-items: stretch; flex-direction: column; }
+  .directory-toolbar { grid-template-columns: 1fr; padding: 15px; }
+  .directory-toolbar > button { grid-column: 1; }
+  .directory-card { min-height: 0; padding: 23px; }
+  .directory-card-actions { flex-direction: column; align-items: stretch; }
+  .directory-card-actions button, .directory-card-actions a { width: 100%; }
+  .directory-source { align-items: flex-start; flex-direction: column; }
   .arrival-card { align-items: flex-start; flex-direction: column; padding: 36px 25px; }
   .final-cta { padding: 78px 20px; }
   body > footer { padding: 40px 22px 90px; }

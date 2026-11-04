@@ -1,6 +1,6 @@
 # FertiNaija
 
-Independent fertility-opportunity information and visit coordination for Nigerians.
+Independent fertility-opportunity, possible-reward and public clinic information for Nigerians.
 
 ## Run
 
@@ -31,3 +31,5 @@ The intended QuikDB deployment is `https://fertinaija.quikdb.net` with:
 
 FertiNaija is not a clinic or medical provider. Public facility listings do not imply affiliation.
 The application does not transmit user information to listed facilities.
+Location filtering uses a state selected by the user and never automatically recommends one clinic.
+Compensation and reimbursement are programme-specific and are never guaranteed by FertiNaija.
