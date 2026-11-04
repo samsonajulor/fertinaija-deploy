@@ -15,6 +15,7 @@ Mobile-first independent fertility-opportunity information and visit coordinatio
 - Arrival check-in journey for users who reach a facility independently.
 - Privacy and terms pages that preserve the non-medical, non-affiliated boundary.
 - Consent banner, first-party privacy-choice cookie, optional location preference, Global Privacy Control handling, and California privacy disclosures.
+- Self-hosted editorial photography below the unchanged hero, with model/non-affiliation disclosure and consistent Lucide icons.
 
 ## Key Files
 
@@ -24,6 +25,8 @@ Mobile-first independent fertility-opportunity information and visit coordinatio
 | `public/index.html` | Public mobile-first product experience. |
 | `public/app.js` | Guided assistant, state check, analytics and support handoff. |
 | `public/styles.css` | Responsive visual system. |
+| `public/images/` | Self-hosted, licensed editorial photography. |
+| `ASSET-SOURCES.md` | Photo credits, licences, icon source and usage boundaries. |
 | `quikdb.json` | Versioned QuikDB production runtime and health-check settings. |
 | `test/server.test.js` | Health, boundary-copy and security-header tests. |
 
@@ -31,6 +34,7 @@ Mobile-first independent fertility-opportunity information and visit coordinatio
 
 | Date | Change | Branch/PR |
 |------|--------|-----------|
+| 2026-11-04 | Added a licensed, self-hosted visual story below the unchanged hero and replaced placeholder opportunity glyphs with consistent Lucide icons. | `codex/fertinaija-directory-rewards` |
 | 2026-11-04 | Removed the shared QuikDB HubSpot widget, routed expert actions to `t.me/fertinaija`, replaced the search toolbar with full-list location buttons, corrected option-card overlap, added privacy/terms plus consent controls, switched external actions to reliable same-tab mobile navigation, and added release-safe asset revalidation. | `codex/fertinaija-directory-rewards` |
 | 2026-11-04 | Expanded the single-clinic page into a multi-state public directory, connected state selection to listing filters, added published reward evidence and made opportunity-expert conversation the main action. | `codex/fertinaija-directory-rewards` |
 | 2026-11-04 | Deployed the validated application to QuikDB production at `https://fertinaija.quikdb.net`; enabled auto-deploy from the deployment mirror's `main` branch. | `main` / deployment `deploy-ed2ce8ca-c8c7-4138-af67-22e893819889` |

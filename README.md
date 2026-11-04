@@ -38,3 +38,9 @@ The browser-local guide remains on the site, while opportunity-expert handoffs o
 `https://t.me/fertinaija`. The shared QuikDB HubSpot support widget is intentionally not loaded.
 The footer links to the privacy policy, terms and privacy-choice controls. One necessary consent
 cookie is used; the directory location is stored only when the visitor allows preferences.
+
+## Visual assets
+
+The hero remains illustration-led. A separate editorial section below it uses two self-hosted,
+licensed Pexels photographs and consistent Lucide SVG icons. See `ASSET-SOURCES.md` for sources,
+licences and the non-affiliation/model-use boundary.

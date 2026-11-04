@@ -58,6 +58,29 @@ test('option cards use flow layout so actions cannot overlap their descriptions'
   });
 });
 
+test('editorial visuals are self-hosted, attributed and keep the existing hero intact', async () => {
+  await withServer(async baseUrl => {
+    const [homeResponse, doctorImage, consultationImage] = await Promise.all([
+      fetch(baseUrl),
+      fetch(`${baseUrl}/images/doctor-reviewing-information.jpg`),
+      fetch(`${baseUrl}/images/clinic-consultation.jpg`)
+    ]);
+    const home = await homeResponse.text();
+    assert.match(home, /Your contribution has value/);
+    assert.match(home, /id="visual-story-title"/);
+    assert.match(home, /images\/doctor-reviewing-information\.jpg/);
+    assert.match(home, /images\/clinic-consultation\.jpg/);
+    assert.match(home, /People shown are models, not FertiNaija participants or affiliated clinicians/);
+    assert.match(home, /Tessy Agbonome/);
+    assert.match(home, /Klaus Nielsen/);
+    assert.match(home, /<div class="option-icon" aria-hidden="true"><svg/s);
+    assert.equal(doctorImage.status, 200);
+    assert.equal(doctorImage.headers.get('content-type'), 'image/jpeg');
+    assert.equal(consultationImage.status, 200);
+    assert.equal(consultationImage.headers.get('content-type'), 'image/jpeg');
+  });
+});
+
 test('public clinic dataset contains multiple states and qualified reward evidence', async () => {
   await withServer(async baseUrl => {
     const response = await fetch(`${baseUrl}/clinics.js`);
