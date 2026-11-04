@@ -1,0 +1,14 @@
+{
+  "name": "fertinaija",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Independent fertility-opportunity guidance and visit coordination for Nigerians.",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check public/app.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
