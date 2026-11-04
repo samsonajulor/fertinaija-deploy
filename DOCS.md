@@ -40,7 +40,8 @@ Mobile-first independent fertility-opportunity information and visit coordinatio
 - Public URL: `https://fertinaija.quikdb.net`
 - Health check: `https://fertinaija.quikdb.net/healthz`
 - QuikDB deployment: `deploy-ed2ce8ca-c8c7-4138-af67-22e893819889`
-- Deployed application commit: `964d0a238a69ab3ce79e94220caa03117738d82c`
+- Deployed application commit: `9f023b55c85e9336aae182363653171a3f0fb34e`
+- Production validation runs: canonical `41860008865`; deployment mirror `41860010022`
 - Canonical engineering repository: `https://github.com/quikdb/fertinaija` (private)
 - Deployment-only mirror: `https://github.com/samsonajulor/fertinaija-deploy` (public; contains no credentials)
 
